@@ -1,0 +1,18 @@
+
+-- https://school.programmers.co.kr/learn/courses/30/lessons/157341
+-- 대여 기록이 존재하는 자동차 리스트 구하기
+SELECT DISTINCT(A.CAR_ID) FROM CAR_RENTAL_COMPANY_CAR A
+JOIN (SELECT * FROM CAR_RENTAL_COMPANY_RENTAL_HISTORY WHERE MONTH(START_DATE) = '10') B
+ON A.CAR_ID = B.CAR_ID
+WHERE A.CAR_TYPE = '세단' 
+ORDER BY A.CAR_ID DESC
+
+  
+-- https://school.programmers.co.kr/learn/courses/30/lessons/164671
+-- 조회수가 가장 많은 중고거래 게시판의 첨부파일 조회하기
+SELECT CONCAT('/home/grep/src/',B.BOARD_ID,'/',B.FILE_ID,B.FILE_NAME,B.FILE_EXT) as FILE_PATH 
+FROM USED_GOODS_BOARD A
+INNER JOIN USED_GOODS_FILE B
+ON A.BOARD_ID = B.BOARD_ID
+WHERE A.VIEWS = (SELECT MAX(VIEWS) FROM USED_GOODS_BOARD)
+ORDER BY B.FILE_ID DESC
